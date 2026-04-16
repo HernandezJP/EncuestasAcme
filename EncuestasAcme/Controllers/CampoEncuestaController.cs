@@ -92,7 +92,7 @@ namespace EncuestasAcme.Controllers
                 campoService.Crear(vm.CrearDTO);
                 TempData["Success"] = "Campo creado correctamente.";
 
-                return RedirectToAction("Detalle", "Encuesta", new { id = vm.CrearDTO.ENC_Encuesta });
+                return RedirectToAction("Detail", "Encuesta", new { id = vm.CrearDTO.ENC_Encuesta });
             }
             catch (Exception ex)
             {
@@ -183,7 +183,7 @@ namespace EncuestasAcme.Controllers
                 var encuestaId = campoService.Actualizar(vm.ActualizarDTO);
                 TempData["Success"] = "Campo actualizado correctamente.";
 
-                return RedirectToAction("Detalle", "Encuesta", new { id = encuestaId });
+                return RedirectToAction("Detail", "Encuesta", new { id = encuestaId });
             }
             catch (Exception ex)
             {
