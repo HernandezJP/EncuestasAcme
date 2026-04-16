@@ -1,40 +1,60 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewBag.Title - AcmeEncuestas</title>
+
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
-<body>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
-        <div class="container">
-            @Html.ActionLink("Nombre de la aplicación", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Alternar navegación" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
-                    <li>@Html.ActionLink("Inicio", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Acerca de", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Contacto", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                </ul>
+<body class="app-body">
+    <div class="app-shell fixed-layout">
+        <aside class="app-sidebar">
+            <div class="brand-block">
+                <div class="brand-logo">AE</div>
+                <div>
+                    <h1 class="brand-title">AcmeEncuestas</h1>
+                    <p class="brand-subtitle">Panel administrativo</p>
+                </div>
             </div>
+
+            <nav class="sidebar-nav">
+                <a href="@Url.Action("Index", "Home")" class="nav-item">Dashboard</a>
+                <a href="@Url.Action("Index", "Encuesta")" class="nav-item">Encuestas</a>
+                <a href="@Url.Action("Index", "CampoEncuesta")" class="nav-item">Tipo de Campos</a>
+                <a href="#" class="nav-item">Resultados</a>
+                <a href="#" class="nav-item">Perfil</a>
+            </nav>
+
+            <div class="sidebar-card">
+                <form action="@Url.Action("Logout", "Auth")" method="post">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn-logout">
+                        <i data-lucide="log-out"></i>
+                        Cerrar sesión
+                    </button>
+                </form>
+            </div>
+        </aside>
+
+        <div class="app-main">
+            <main class="app-content">
+                @RenderBody()
+            </main>
+
+            <footer class="app-footer">
+                <p>&copy; @DateTime.Now.Year - AcmeEncuestas</p>
+            </footer>
         </div>
-    </nav>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Mi aplicación ASP.NET</p>
-        </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>lucide.createIcons();</script>
 </body>
 </html>
