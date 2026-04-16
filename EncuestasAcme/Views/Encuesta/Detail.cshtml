@@ -1,0 +1,120 @@
+﻿@model EncuestasAcme.DTOs.Encuesta.DetailEncuestaDTO
+
+@{
+    ViewBag.Title = "Detalle Encuesta";
+}
+@if (TempData["Success"] != null)
+{
+    <div class="section-card alert-success-custom" style="margin-bottom:16px;">
+        <p>@TempData["Success"]</p>
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="section-card alert-danger-custom" style="margin-bottom:16px;">
+        <p>@TempData["Error"]</p>
+    </div>
+}
+
+<div class="page-intro">
+    <h3>Detalle de Encuesta</h3>
+    <p>Administración completa de la encuesta y sus campos.</p>
+</div>
+
+<div class="section-card" style="margin-bottom:20px;">
+    <div class="form-grid">
+        <div class="form-col-6">
+            <label class="form-label">Código</label>
+            <div class="form-control-custom">@Model.ENC_Codigo</div>
+        </div>
+
+        <div class="form-col-6">
+            <label class="form-label">Estado</label>
+            <div class="form-control-custom">@Model.ENC_Estado</div>
+        </div>
+
+        <div class="form-col-12">
+            <label class="form-label">Nombre</label>
+            <div class="form-control-custom">@Model.ENC_Nombre</div>
+        </div>
+
+        <div class="form-col-12">
+            <label class="form-label">Descripción</label>
+            <div class="form-control-custom">@Model.ENC_Descripcion</div>
+        </div>
+
+        <div class="form-col-12">
+            <label class="form-label">Token público</label>
+            <div class="form-control-custom">@Model.ENC_Token_Publico</div>
+        </div>
+    </div>
+</div>
+
+<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; gap:16px; flex-wrap:wrap;">
+    <div class="page-intro" style="margin-bottom:0;">
+        <h3>Campos de la encuesta</h3>
+        <p>Preguntas configuradas para esta encuesta.</p>
+    </div>
+
+    <a href="@Url.Action("Create", "CampoEncuesta", new { encuestaId = Model.ENC_Encuesta })" class="btn btn-primary-custom">
+        Nuevo campo
+    </a>
+</div>
+
+<div class="table-card">
+    <div class="table-responsive">
+        <table class="custom-table">
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Título visible</th>
+                    <th>Nombre interno</th>
+                    <th>Tipo</th>
+                    <th>Requerido</th>
+                    <th>Orden</th>
+                    <th style="width:160px;">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Campos != null && Model.Campos.Count > 0)
+                {
+                    foreach (var item in Model.Campos)
+                    {
+                        <tr>
+                            <td>@item.CAM_Codigo</td>
+                            <td>@item.CAM_Titulo_Visible</td>
+                            <td>@item.CAM_Nombre_Interno</td>
+                            <td>@item.TCA_Descripcion</td>
+                            <td>@(item.CAM_Es_Requerido ? "Sí" : "No")</td>
+                            <td>@item.CAM_Orden</td>
+                            <td>
+                                <div class="actions-container">
+                                    <a href="@Url.Action("Edit", "CampoEncuesta", new { id = item.CAM_Campo })" class="btn-icon">
+                                        <i data-lucide="pencil"></i>
+                                    </a>
+
+                                    <a href="@Url.Action("Delete", "CampoEncuesta", new { id = item.CAM_Campo })"
+                                       class="btn-icon btn-danger"
+                                       onclick="return confirm('¿Deseas eliminar este campo?');">
+                                        <i data-lucide="trash-2"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="7">No hay campos registrados para esta encuesta.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="form-actions" style="margin-top:20px;">
+    <a href="@Url.Action("Index", "Encuesta")" class="btn btn-outline-custom">Volver</a>
+</div>

@@ -1,0 +1,89 @@
+﻿@model List<EncuestasAcme.DTOs.Encuesta.ResponseEncuestaDTO>
+
+@{
+    ViewBag.Title = "Encuestas";
+}
+
+@if (TempData["Success"] != null)
+{
+    <div class="section-card" style="margin-bottom: 16px; border-left: 4px solid #16a34a;">
+        <p>@TempData["Success"]</p>
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="section-card" style="margin-bottom: 16px; border-left: 4px solid #dc2626;">
+        <p>@TempData["Error"]</p>
+    </div>
+}
+<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+    <div class="page-intro">
+        <h3>Gestión de Encuestas</h3>
+        <p>Administra las encuestas registradas en el sistema.</p>
+    </div>
+    <a href="@Url.Action("Create", "Encuesta")" class="btn btn-primary-custom">
+        Nueva encuesta
+    </a>
+
+</div>
+
+<div class="table-card">
+    <div class="table-responsive">
+        <table class="custom-table">
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Token</th>
+                    <th>Fecha creación</th>
+                    <th style="width: 190px;">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Count > 0)
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.ENC_Codigo</td>
+                            <td>@item.ENC_Nombre</td>
+                            <td>@item.ENC_Descripcion</td>
+                            <td>@item.ENC_Token_Publico</td>
+                            <td>@item.ENC_Fecha_Creacion.ToString("dd/MM/yyyy HH:mm")</td>
+                            <td>
+                                <div class="actions-container">
+
+                                    <a href="@Url.Action("Detail", "Encuesta", new { id = item.ENC_Encuesta })"
+                                       class="btn-icon btn-secondary">
+                                        <i data-lucide="eye"></i>
+                                    </a>
+
+                                    <a href="@Url.Action("Edit", "Encuesta", new { id = item.ENC_Encuesta })"
+                                       class="btn-icon" data-tooltip="Editar">
+                                        <i data-lucide="pencil"></i>
+                                    </a>
+
+                                    <a href="@Url.Action("Delete", "Encuesta", new { id = item.ENC_Encuesta })"
+                                       class="btn-icon btn-danger"
+                                       data-tooltip="Eliminar"
+                                       onclick="return confirm('¿Deseas eliminar esta encuesta?');">
+                                        <i data-lucide="trash-2"></i>
+                                    </a>
+
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="6">No hay encuestas registradas.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

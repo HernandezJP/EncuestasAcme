@@ -1,0 +1,39 @@
+﻿@model EncuestasAcme.DTOs.Encuesta.UpdateEncuestaDTO
+
+@{
+    ViewBag.Title = "Editar encuesta";
+}
+
+<div class="page-intro">
+    <h3>Editar encuesta</h3>
+    <p>Modifica la información principal de la encuesta.</p>
+</div>
+
+<div class="form-card">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.ENC_Encuesta)
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-grid">
+            <div class="form-col-12">
+                <label class="form-label">Nombre</label>
+                @Html.TextBoxFor(m => m.ENC_Nombre, new { @class = "form-control-custom" })
+                @Html.ValidationMessageFor(m => m.ENC_Nombre, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-col-12">
+                <label class="form-label">Descripción</label>
+                @Html.TextAreaFor(m => m.ENC_Descripcion, new { @class = "form-control-custom" })
+                @Html.ValidationMessageFor(m => m.ENC_Descripcion, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary-custom">Actualizar</button>
+            <a href="@Url.Action("Index", "Encuesta")" class="btn btn-outline-custom">Cancelar</a>
+        </div>
+    }
+</div>

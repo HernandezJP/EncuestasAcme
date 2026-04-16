@@ -10,21 +10,45 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body class="app-body">
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+
     <div class="app-shell fixed-layout">
-        <aside class="app-sidebar">
-            <div class="brand-block">
-                <div class="brand-logo">AE</div>
+        <header class="mobile-topbar">
+            <button type="button" class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Abrir menú">
+                <i data-lucide="menu"></i>
+            </button>
+
+            <div class="mobile-brand">
+                <div class="brand-logo mobile-logo">AE</div>
                 <div>
-                    <h1 class="brand-title">AcmeEncuestas</h1>
-                    <p class="brand-subtitle">Panel administrativo</p>
+                    <h1 class="mobile-brand-title">AcmeEncuestas</h1>
+                    <p class="mobile-brand-subtitle">Panel administrativo</p>
                 </div>
+            </div>
+        </header>
+
+        <aside class="app-sidebar" id="appSidebar">
+            <div class="sidebar-mobile-header">
+                <div class="brand-block">
+                    <div class="brand-logo">AE</div>
+                    <div>
+                        <h1 class="brand-title">AcmeEncuestas</h1>
+                        <p class="brand-subtitle">Panel administrativo</p>
+                    </div>
+                </div>
+
+                <button type="button" class="mobile-close-btn" id="mobileCloseBtn" aria-label="Cerrar menú">
+                    <i data-lucide="x"></i>
+                </button>
             </div>
 
             <nav class="sidebar-nav">
-                <a href="@Url.Action("Index", "Dashboard")" class="nav-item">Dashboard</a>
-                <a href="@Url.Action("Index", "TipoCampo")" class="nav-item">Tipo de Campos</a>
-                <a href="#" class="nav-item">Resultados</a>
-                <a href="#" class="nav-item">Perfil</a>
+                <a href="@Url.Action("Index", "Dashboard")" class="nav-item"><i data-lucide="layout-dashboard"></i>Dashboard</a>
+                <a href="@Url.Action("Index", "Encuesta")" class="nav-item"><i data-lucide="clipboard-list"></i>Encuestas</a>
+                <a href="@Url.Action("Index", "CampoEncuesta")" class="nav-item"><i data-lucide="square-menu"></i>Campos de Encuesta</a>
+                <a href="@Url.Action("Index", "TipoCampo")" class="nav-item"><i data-lucide="list-checks"></i>Tipo de Campos</a>
+                <a href="#" class="nav-item"><i data-lucide="bar-chart-3"></i>Resultados</a>
+                <a href="#" class="nav-item"><i data-lucide="user-circle"></i>Perfil</a>
             </nav>
 
             <div class="sidebar-card">
@@ -54,6 +78,33 @@
     @RenderSection("scripts", required: false)
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <script>lucide.createIcons();</script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            lucide.createIcons();
+
+            const body = document.body;
+            const menuBtn = document.getElementById("mobileMenuBtn");
+            const closeBtn = document.getElementById("mobileCloseBtn");
+            const overlay = document.getElementById("mobileOverlay");
+
+            function openSidebar() {
+                body.classList.add("sidebar-open");
+            }
+
+            function closeSidebar() {
+                body.classList.remove("sidebar-open");
+            }
+
+            if (menuBtn) menuBtn.addEventListener("click", openSidebar);
+            if (closeBtn) closeBtn.addEventListener("click", closeSidebar);
+            if (overlay) overlay.addEventListener("click", closeSidebar);
+
+            window.addEventListener("resize", function () {
+                if (window.innerWidth > 991) {
+                    closeSidebar();
+                }
+            });
+        });
+    </script>
 </body>
 </html>

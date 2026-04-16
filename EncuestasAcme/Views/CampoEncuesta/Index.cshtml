@@ -1,0 +1,66 @@
+﻿@model List<EncuestasAcme.DTOs.CampoEncuesta.ResponseCampoEncuestaDTO>
+
+@{
+    ViewBag.Title = "Campos de Encuesta";
+}
+
+<div class="page-intro">
+    <h3>Todos los campos</h3>
+    <p>Vista general de campos registrados en todas las encuestas.</p>
+</div>
+
+@if (TempData["Success"] != null)
+{
+    <div class="section-card alert-success-custom" style="margin-bottom:16px;">
+        <p>@TempData["Success"]</p>
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="section-card alert-danger-custom" style="margin-bottom:16px;">
+        <p>@TempData["Error"]</p>
+    </div>
+}
+
+<div class="table-card">
+    <div class="table-responsive">
+        <table class="custom-table">
+            <thead>
+                <tr>
+                    <th>Encuesta</th>
+                    <th>Código</th>
+                    <th>Título visible</th>
+                    <th>Nombre interno</th>
+                    <th>Tipo</th>
+                    <th>Requerido</th>
+                    <th>Orden</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Count > 0)
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.ENC_Nombre</td>
+                            <td>@item.CAM_Codigo</td>
+                            <td>@item.CAM_Titulo_Visible</td>
+                            <td>@item.CAM_Nombre_Interno</td>
+                            <td>@item.TCA_Descripcion</td>
+                            <td>@(item.CAM_Es_Requerido ? "Sí" : "No")</td>
+                            <td>@item.CAM_Orden</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="7">No hay campos registrados.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

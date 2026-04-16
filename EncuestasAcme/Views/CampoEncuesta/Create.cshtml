@@ -1,0 +1,64 @@
+﻿@model EncuestasAcme.ViewModels.CampoEncuestaFormViewModel
+
+@{
+    ViewBag.Title = "Crear Campo";
+}
+
+<div class="page-intro">
+    <h3>Nuevo campo</h3>
+    <p>Encuesta: @Model.ENC_Nombre</p>
+</div>
+
+<div class="form-card">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @Html.HiddenFor(m => m.CrearDTO.ENC_Encuesta)
+
+        <div class="form-grid">
+            <div class="form-col-6">
+                <label class="form-label">Tipo de campo</label>
+                @Html.DropDownListFor(
+                    m => m.CrearDTO.TCA_Tipo_Campo,
+                    Model.TiposCampo,
+                    "Seleccione",
+                    new { @class = "form-control-custom" }
+                )
+                @Html.ValidationMessageFor(m => m.CrearDTO.TCA_Tipo_Campo, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-col-6">
+                <label class="form-label">Orden</label>
+                @Html.TextBoxFor(m => m.CrearDTO.CAM_Orden, new { @class = "form-control-custom", type = "number" })
+                @Html.ValidationMessageFor(m => m.CrearDTO.CAM_Orden, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-col-6">
+                <label class="form-label">Nombre interno</label>
+                @Html.TextBoxFor(m => m.CrearDTO.CAM_Nombre_Interno, new { @class = "form-control-custom" })
+                @Html.ValidationMessageFor(m => m.CrearDTO.CAM_Nombre_Interno, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-col-6">
+                <label class="form-label">Título visible</label>
+                @Html.TextBoxFor(m => m.CrearDTO.CAM_Titulo_Visible, new { @class = "form-control-custom" })
+                @Html.ValidationMessageFor(m => m.CrearDTO.CAM_Titulo_Visible, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-col-12">
+                <label style="display:flex; align-items:center; gap:8px; margin-top:10px;">
+                    @Html.CheckBoxFor(m => m.CrearDTO.CAM_Es_Requerido)
+                    <span>Es requerido</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary-custom">Guardar</button>
+            <a href="@Url.Action("View", "Encuesta", new { id = Model.ENC_Encuesta })" class="btn btn-outline-custom">Cancelar</a>
+        </div>
+    }
+</div>
+
