@@ -1,0 +1,73 @@
+﻿@model EncuestasAcme.DTOs.TipoCampo.ResponseTipoCampoDTO
+
+@{
+    ViewBag.Title = "Detalle Tipo de Campo";
+}
+
+<div class="page-intro">
+    <h3>Detalle del Tipo de Campo</h3>
+    <p>Consulta la información completa del tipo de campo seleccionado.</p>
+</div>
+
+<div class="section-card">
+    <div class="form-grid">
+        <div class="form-col-6">
+            <label class="form-label">Código</label>
+            <div class="form-control-custom">@Model.TCA_Codigo</div>
+        </div>
+
+        <div class="form-col-6">
+            <label class="form-label">Clave</label>
+            <div class="form-control-custom">@Model.TCA_Clave</div>
+        </div>
+
+        <div class="form-col-12">
+            <label class="form-label">Descripción</label>
+            <div class="form-control-custom">@Model.TCA_Descripcion</div>
+        </div>
+
+        <div class="form-col-6">
+            <label class="form-label">Permite opciones</label>
+            <div class="form-control-custom">
+                @(Model.TCA_Permite_Opciones ? "Sí" : "No")
+            </div>
+        </div>
+
+        <div class="form-col-6">
+            <label class="form-label">Permite múltiples</label>
+            <div class="form-control-custom">
+                @(Model.TCA_Permite_Multiples ? "Sí" : "No")
+            </div>
+        </div>
+
+        <div class="form-col-6">
+            <label class="form-label">Estado</label>
+            <div>
+                @if (Model.TCA_Estado == "A")
+                {
+                    <span class="badge-custom badge-success">Activo</span>
+                }
+                else
+                {
+                    <span class="badge-custom badge-warning">Inactivo</span>
+                }
+            </div>
+        </div>
+
+        <div class="form-col-6">
+            <label class="form-label">Fecha de creación</label>
+            <div class="form-control-custom">
+                @Model.TCA_Fecha_Creacion.ToString("dd/MM/yyyy HH:mm")
+            </div>
+        </div>
+    </div>
+
+    <div class="form-actions" style="margin-top:20px;">
+        <a href="@Url.Action("Edit", "TipoCampo", new { id = Model.TCA_Tipo_Campo })" class="btn btn-primary-custom">
+            Editar
+        </a>
+        <a href="@Url.Action("Index", "TipoCampo")" class="btn btn-outline-custom">
+            Regresar
+        </a>
+    </div>
+</div>

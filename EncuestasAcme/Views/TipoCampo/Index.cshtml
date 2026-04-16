@@ -1,0 +1,110 @@
+﻿@model List<EncuestasAcme.DTOs.TipoCampo.ResponseTipoCampoDTO>
+
+@{
+    ViewBag.Title = "Tipos de Campo";
+}
+
+@if (TempData["Success"] != null)
+{
+    <div class="section-card alert-success-custom" style="margin-bottom:16px;">
+        <p>@TempData["Success"]</p>
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="section-card alert-danger-custom" style="margin-bottom:16px;">
+        <p>@TempData["Error"]</p>
+    </div>
+}
+
+<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; gap:16px; flex-wrap:wrap;">
+    <div class="page-intro" style="margin-bottom:0;">
+        <h3>Tipos de Campo</h3>
+        <p>Administra el catálogo de tipos de campo del sistema.</p>
+    </div>
+
+    <a href="@Url.Action("Create", "TipoCampo")" class="btn btn-primary-custom">
+        Nuevo tipo
+    </a>
+</div>
+
+<div class="table-card">
+    <div class="table-responsive">
+        <table class="custom-table">
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Clave</th>
+                    <th>Descripción</th>
+                    <th>Opciones</th>
+                    <th>Múltiples</th>
+                    <th>Estado</th>
+                    <th>Fecha creación</th>
+                    <th style="width:160px;">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Count > 0)
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.TCA_Codigo</td>
+                            <td>@item.TCA_Clave</td>
+                            <td>@item.TCA_Descripcion</td>
+                            <td>@(item.TCA_Permite_Opciones ? "Sí" : "No")</td>
+                            <td>@(item.TCA_Permite_Multiples ? "Sí" : "No")</td>
+                            <td>
+                                @if (item.TCA_Estado == "A")
+                                {
+                                    <span class="badge-custom badge-success">Activo</span>
+                                }
+                                else
+                                {
+                                    <span class="badge-custom badge-warning">Inactivo</span>
+                                }
+                            </td>
+                            <td>@item.TCA_Fecha_Creacion.ToString("dd/MM/yyyy HH:mm")</td>
+                            <td>
+                                <div class="actions-container">
+                                    <div class="actions-container">
+                                        <a href="@Url.Action("Detail", "TipoCampo", new { id = item.TCA_Tipo_Campo })" class="btn-icon btn-secondary">
+                                            <i data-lucide="eye"></i>
+                                        </a>
+
+                                        <a href="@Url.Action("Edit", "TipoCampo", new { id = item.TCA_Tipo_Campo })" class="btn-icon">
+                                            <i data-lucide="pencil"></i>
+                                        </a>
+
+                                        @if (item.TCA_Estado == "A")
+                                        {
+                                            <a href="@Url.Action("Delete", "TipoCampo", new { id = item.TCA_Tipo_Campo })"
+                                               class="btn-icon btn-danger"
+                                               onclick="return confirm('¿Deseas inactivar este tipo de campo?');">
+                                                <i data-lucide="trash-2"></i>
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <a href="@Url.Action("Reactivar", "TipoCampo", new { id = item.TCA_Tipo_Campo })"
+                                               class="btn-icon btn-secondary">
+                                                <i data-lucide="rotate-ccw"></i>
+                                            </a>
+                                        }
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="8">No hay tipos de campo registrados.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

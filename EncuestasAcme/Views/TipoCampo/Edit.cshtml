@@ -1,0 +1,52 @@
+﻿@model EncuestasAcme.DTOs.TipoCampo.UpdateTipoCampoDTO
+
+@{
+    ViewBag.Title = "Editar Tipo de Campo";
+}
+
+<div class="page-intro">
+    <h3>Editar Tipo de Campo</h3>
+    <p>Modifica la información del tipo de campo.</p>
+</div>
+
+<div class="form-card">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.TCA_Tipo_Campo)
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-grid">
+            <div class="form-col-6">
+                <label class="form-label">Clave</label>
+                @Html.TextBoxFor(m => m.TCA_Clave, new { @class = "form-control-custom" })
+                @Html.ValidationMessageFor(m => m.TCA_Clave, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-col-6">
+                <label class="form-label">Descripción</label>
+                @Html.TextBoxFor(m => m.TCA_Descripcion, new { @class = "form-control-custom" })
+                @Html.ValidationMessageFor(m => m.TCA_Descripcion, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-col-6">
+                <label style="display:flex; align-items:center; gap:8px; margin-top:10px;">
+                    @Html.CheckBoxFor(m => m.TCA_Permite_Opciones)
+                    <span>Permite opciones</span>
+                </label>
+            </div>
+
+            <div class="form-col-6">
+                <label style="display:flex; align-items:center; gap:8px; margin-top:10px;">
+                    @Html.CheckBoxFor(m => m.TCA_Permite_Multiples)
+                    <span>Permite múltiples</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary-custom">Actualizar</button>
+            <a href="@Url.Action("Index", "TipoCampo")" class="btn btn-outline-custom">Cancelar</a>
+        </div>
+    }
+</div>
