@@ -12,10 +12,10 @@ namespace EncuestasAcme.DTOs.CampoEncuesta
 
         public int ENC_Encuesta { get; set; }
         public string ENC_Nombre { get; set; }
-
         public int TCA_Tipo_Campo { get; set; }
         public string TCA_Descripcion { get; set; }
-
+        public bool TCA_Permite_Opciones { get; set; }
+        public bool TCA_Permite_Multiples { get; set; }
         public string CAM_Nombre_Interno { get; set; }
         public string CAM_Titulo_Visible { get; set; }
 

@@ -1,0 +1,45 @@
+﻿@model EncuestasAcme.ViewModels.OpcionCampoFormViewModel
+
+@{
+    ViewBag.Title = "Crear Opción";
+}
+
+<div class="page-intro">
+    <h3>Nueva opción</h3>
+    <p>Campo: @Model.CAM_Titulo_Visible (@Model.TCA_Descripcion)</p>
+</div>
+
+<div class="form-card">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @Html.HiddenFor(m => m.CreateDTO.CAM_Campo)
+
+        <div class="form-grid">
+            <div class="form-col-6">
+                <label class="form-label">Texto</label>
+                @Html.TextBoxFor(m => m.CreateDTO.OPC_Texto, new { @class = "form-control-custom" })
+                @Html.ValidationMessageFor(m => m.CreateDTO.OPC_Texto, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-col-6">
+                <label class="form-label">Valor</label>
+                @Html.TextBoxFor(m => m.CreateDTO.OPC_Valor, new { @class = "form-control-custom" })
+                @Html.ValidationMessageFor(m => m.CreateDTO.OPC_Valor, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-col-6">
+                <label class="form-label">Orden</label>
+                @Html.TextBoxFor(m => m.CreateDTO.OPC_Orden, new { @class = "form-control-custom", type = "number" })
+                @Html.ValidationMessageFor(m => m.CreateDTO.OPC_Orden, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary-custom">Guardar</button>
+            <a href="@Url.Action("PorCampo", "OpcionCampo", new { campoId = Model.CAM_Campo })" class="btn btn-outline-custom">Cancelar</a>
+        </div>
+    }
+</div>

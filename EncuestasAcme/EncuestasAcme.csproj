@@ -130,6 +130,7 @@
     <Compile Include="Controllers\CampoEncuestaController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\EncuestaController.cs" />
+    <Compile Include="Controllers\OpcionCampoController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\TipoCampoController.cs" />
     <Compile Include="Data\ApplicationDbContext.cs" />
@@ -140,6 +141,9 @@
     <Compile Include="DTOs\Encuesta\DetailEncuestaDTO.cs" />
     <Compile Include="DTOs\Encuesta\ResponseEncuestaDTO.cs" />
     <Compile Include="DTOs\Encuesta\UpdateEncuestaDTO.cs" />
+    <Compile Include="DTOs\OpcionCampo\CreateOpcionCampoDTO.cs" />
+    <Compile Include="DTOs\OpcionCampo\ResponseOpcionCampoDTO.cs" />
+    <Compile Include="DTOs\OpcionCampo\UpdateOpcionCampoDTO.cs" />
     <Compile Include="DTOs\TipoCampo\CreateTipoCampoDTO.cs" />
     <Compile Include="DTOs\TipoCampo\ResponseTipoCampoDTO.cs" />
     <Compile Include="DTOs\TipoCampo\UpdateTipoCampoDTO.cs" />
@@ -160,11 +164,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CampoEncuestaRepository.cs" />
     <Compile Include="Repositories\EncuestaRepository.cs" />
+    <Compile Include="Interfaces\IOpcionCampoRepository.cs" />
+    <Compile Include="Repositories\OpcionCampoRepository.cs" />
     <Compile Include="Repositories\TipoCampoRepository.cs" />
     <Compile Include="Services\CampoEncuestaService.cs" />
     <Compile Include="Services\EncuestaService.cs" />
+    <Compile Include="Services\OpcionCampoService.cs" />
     <Compile Include="Services\TipoCampoService.cs" />
     <Compile Include="ViewModels\CampoEncuestaFormViewModel.cs" />
+    <Compile Include="ViewModels\OpcionCampoFormViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-grid.css" />
@@ -226,6 +234,9 @@
     <Content Include="Views\CampoEncuesta\Create.cshtml" />
     <Content Include="Views\CampoEncuesta\Edit.cshtml" />
     <Content Include="Views\CampoEncuesta\Index.cshtml" />
+    <Content Include="Views\OpcionCampo\PorCampo.cshtml" />
+    <Content Include="Views\OpcionCampo\Create.cshtml" />
+    <Content Include="Views\OpcionCampo\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,86 @@
+﻿@model List<EncuestasAcme.DTOs.OpcionCampo.ResponseOpcionCampoDTO>
+
+@{
+    ViewBag.Title = "Opciones del Campo";
+}
+
+<div class="page-intro">
+    <h3>Opciones del campo</h3>
+    <p>@ViewBag.CampoTitulo</p>
+</div>
+
+@if (TempData["Success"] != null)
+{
+    <div class="section-card alert-success-custom" style="margin-bottom:16px;">
+        <p>@TempData["Success"]</p>
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="section-card alert-danger-custom" style="margin-bottom:16px;">
+        <p>@TempData["Error"]</p>
+    </div>
+}
+
+<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; gap:16px; flex-wrap:wrap;">
+    <div></div>
+    <a href="@Url.Action("Create", "OpcionCampo", new { campoId = ViewBag.CampoId })" class="btn btn-primary-custom">
+        Nueva opción
+    </a>
+</div>
+
+<div class="table-card">
+    <div class="table-responsive">
+        <table class="custom-table">
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Texto</th>
+                    <th>Valor</th>
+                    <th>Orden</th>
+                    <th style="width:160px;">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Count > 0)
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.OPC_Codigo</td>
+                            <td>@item.OPC_Texto</td>
+                            <td>@item.OPC_Valor</td>
+                            <td>@item.OPC_Orden</td>
+                            <td>
+                                <div class="actions-container">
+                                    <a href="@Url.Action("Edit", "OpcionCampo", new { id = item.OPC_Opcion })" class="btn-icon">
+                                        <i data-lucide="pencil"></i>
+                                    </a>
+
+                                    <a href="@Url.Action("Delete", "OpcionCampo", new { id = item.OPC_Opcion })"
+                                       class="btn-icon btn-danger"
+                                       onclick="return confirm('¿Deseas eliminar esta opción?');">
+                                        <i data-lucide="trash-2"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5">No hay opciones registradas para este campo.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="form-actions" style="margin-top:20px;">
+    <a href="@Url.Action("Detail", "Encuesta", new { id = ViewBag.EncuestaId })" class="btn btn-outline-custom">
+        Volver a encuesta
+    </a>
+</div>

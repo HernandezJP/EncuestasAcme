@@ -157,6 +157,8 @@ namespace EncuestasAcme.Services
                 ENC_Nombre = x.Encuesta != null ? x.Encuesta.ENC_Nombre : string.Empty,
                 TCA_Tipo_Campo = x.TCA_Tipo_Campo,
                 TCA_Descripcion = x.TipoCampo != null ? x.TipoCampo.TCA_Descripcion : string.Empty,
+                TCA_Permite_Opciones = x.TipoCampo != null && x.TipoCampo.TCA_Permite_Opciones,
+                TCA_Permite_Multiples = x.TipoCampo != null && x.TipoCampo.TCA_Permite_Multiples,
                 CAM_Nombre_Interno = x.CAM_Nombre_Interno,
                 CAM_Titulo_Visible = x.CAM_Titulo_Visible,
                 CAM_Es_Requerido = x.CAM_Es_Requerido,

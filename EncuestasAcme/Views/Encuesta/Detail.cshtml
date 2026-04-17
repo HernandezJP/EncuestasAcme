@@ -90,6 +90,13 @@
                             <td>@item.CAM_Orden</td>
                             <td>
                                 <div class="actions-container">
+                                    @if (item.TCA_Permite_Opciones)
+                                    {
+                                        <a href="@Url.Action("PorCampo", "OpcionCampo", new { campoId = item.CAM_Campo })"
+                                           class="btn-icon btn-secondary">
+                                            <i data-lucide="list-checks"></i>
+                                        </a>
+                                    }
                                     <a href="@Url.Action("Edit", "CampoEncuesta", new { id = item.CAM_Campo })" class="btn-icon">
                                         <i data-lucide="pencil"></i>
                                     </a>
