@@ -1,0 +1,69 @@
+# Estructura de la Base de Datos y Decisiones de Diseño
+
+La base de datos del sistema **AcmeEncuestas** fue diseñada bajo un modelo relacional con el objetivo de lograr una estructura organizada, escalable y flexible para la administración de encuestas y sus respuestas.
+
+---
+
+##  Organización general
+
+La base de datos se divide en tres bloques principales:
+
+### 1. Administración del sistema
+
+- **ACE_ROL**: define los roles del sistema (Administrador, Editor, Consulta).
+- **ACE_USUARIO**: almacena la información de los usuarios, incluyendo credenciales, nombres, correo y rol asignado.
+
+### Decisión de diseño
+
+Se separaron usuarios y roles para permitir una gestión más flexible de permisos. Esto facilita la escalabilidad del sistema y evita asignar permisos directamente a cada usuario.
+
+---
+
+### 2. Definición de encuestas
+
+- **ACE_ENCUESTA**: contiene la información general de cada encuesta.
+- **ACE_TIPO_CAMPO**: define los tipos de preguntas (texto, número, fecha, selección, etc.).
+- **ACE_CAMPO_ENCUESTA**: representa los campos o preguntas de cada encuesta.
+- **ACE_OPCION_CAMPO**: almacena las opciones para preguntas de selección.
+
+### Decisión de diseño
+
+Se implementó una estructura dinámica que permite crear encuestas sin modificar el código.  
+Cada encuesta puede tener múltiples campos, y cada campo puede ser de un tipo diferente.
+
+Las opciones se separaron en una tabla independiente para mantener normalización y permitir múltiples valores por campo.
+
+---
+
+### 3. Almacenamiento de respuestas
+
+- **ACE_RESPUESTA**: cabecera de la respuesta.
+- **ACE_RESPUESTA_DETALLE**: valores ingresados por cada campo.
+- **ACE_RESPUESTA_OPCION**: opciones seleccionadas en preguntas de selección.
+
+### Decisión de diseño
+
+Se utilizó un modelo maestro-detalle:
+
+- Cabecera → información general
+- Detalle → respuestas por campo
+
+Se separaron los tipos de datos en columnas distintas (texto, número, fecha) para facilitar validaciones y consultas.
+
+---
+
+## Otras decisiones importantes
+
+- Uso de **IDs autoincrementales** para simplicidad.
+- Uso de **códigos visibles** (ENC-000001, USU-000001).
+- Uso de **estado lógico (A/I)** en lugar de eliminar registros.
+- Uso de **restricciones** (PK, FK, UNIQUE, CHECK) para integridad.
+
+---
+
+## La estructura permite:
+
+- crear encuestas dinámicas
+- almacenar respuestas de forma flexible
+- mantener integridad de datos
+- escalar el sistema sin modificar la lógica principal
