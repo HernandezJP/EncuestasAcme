@@ -1,0 +1,93 @@
+﻿@model EncuestasAcme.DTOs.Usuario.DetailUsuarioDTO
+
+@{
+    ViewBag.Title = "Detalle de Usuario";
+}
+
+<div class="page-intro">
+    <h3>Detalle de usuario</h3>
+    <p>Visualiza la información completa del usuario.</p>
+</div>
+
+<div class="section-card">
+    <div class="form-grid">
+        <div class="form-col-6">
+            <label class="form-label">Código</label>
+            <div class="form-control-custom readonly-field">@Model.USU_Codigo</div>
+        </div>
+
+        <div class="form-col-6">
+            <label class="form-label">Username</label>
+            <div class="form-control-custom readonly-field">@Model.USU_User_Name</div>
+        </div>
+
+        <div class="form-col-6">
+            <label class="form-label">Primer nombre</label>
+            <div class="form-control-custom readonly-field">@Model.USU_Primer_Nombre</div>
+        </div>
+
+        <div class="form-col-6">
+            <label class="form-label">Segundo nombre</label>
+            <div class="form-control-custom readonly-field">@Model.USU_Segundo_Nombre</div>
+        </div>
+
+        <div class="form-col-6">
+            <label class="form-label">Primer apellido</label>
+            <div class="form-control-custom readonly-field">@Model.USU_Primer_Apellido</div>
+        </div>
+
+        <div class="form-col-6">
+            <label class="form-label">Segundo apellido</label>
+            <div class="form-control-custom readonly-field">@Model.USU_Segundo_Apellido</div>
+        </div>
+
+        <div class="form-col-12">
+            <label class="form-label">Nombre completo</label>
+            <div class="form-control-custom readonly-field">@Model.NombreCompleto</div>
+        </div>
+
+        <div class="form-col-6">
+            <label class="form-label">Correo electrónico</label>
+            <div class="form-control-custom readonly-field">@Model.USU_Correo_Electronico</div>
+        </div>
+
+        <div class="form-col-6">
+            <label class="form-label">Estado</label>
+            <div class="form-control-custom readonly-field">
+                @if (Model.USU_Estado == "A")
+                {
+                    <span class="badge badge-success">Activo</span>
+                }
+                else
+                {
+                    <span class="badge badge-danger">Inactivo</span>
+                }
+            </div>
+        </div>
+
+        <div class="form-col-6">
+            <label class="form-label">Fecha de creación</label>
+            <div class="form-control-custom readonly-field">@Model.USU_Fecha_Creacion.ToString("dd/MM/yyyy HH:mm")</div>
+        </div>
+
+        <div class="form-col-6">
+            <label class="form-label">Rol</label>
+            <div class="form-control-custom readonly-field">@Model.ROL_Nombre</div>
+        </div>
+
+        <div class="form-col-6">
+            <label class="form-label">Código de rol</label>
+            <div class="form-control-custom readonly-field">@Model.ROL_Codigo</div>
+        </div>
+
+        <div class="form-col-6">
+            <label class="form-label">Descripción del rol</label>
+            <div class="form-control-custom readonly-field">@Model.ROL_Descripcion</div>
+        </div>
+    </div>
+
+    <div class="form-actions" style="margin-top:20px;">
+        <a href="@Url.Action("Index", "Usuario")" class="btn btn-outline-custom">Volver</a>
+        <a href="@Url.Action("Edit", "Usuario", new { id = Model.USU_Usuario })" class="btn btn-primary-custom">Editar</a>
+    </div>
+</div>

@@ -46,6 +46,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BCrypt.Net-Next, Version=4.1.0.0, Culture=neutral, PublicKeyToken=1e11be04b6288443, processorArchitecture=MSIL">
+      <HintPath>..\packages\BCrypt.Net-Next.4.1.0\lib\net48\BCrypt.Net-Next.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.6.0-preview1-final\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -54,8 +57,21 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.6.1\lib\net462\System.Buffers.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Memory, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.6.3\lib\net462\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.6.1\lib\net462\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.1.2\lib\net462\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -127,14 +143,19 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\CampoEncuestaController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\EncuestaController.cs" />
     <Compile Include="Controllers\OpcionCampoController.cs" />
     <Compile Include="Controllers\RespuestaController.cs" />
+    <Compile Include="Controllers\RolController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\TipoCampoController.cs" />
+    <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Data\ApplicationDbContext.cs" />
+    <Compile Include="DTOs\Auth\AuthUsuarioDTO.cs" />
+    <Compile Include="DTOs\Auth\LoginDTO.cs" />
     <Compile Include="DTOs\CampoEncuesta\CreateCampoEncuestaDTO.cs" />
     <Compile Include="DTOs\CampoEncuesta\ResponseCampoEncuestaDTO.cs" />
     <Compile Include="DTOs\CampoEncuesta\UpdateCampoEncuestaDTO.cs" />
@@ -153,24 +174,36 @@
     <Compile Include="DTOs\Respuesta\CreateRespuestaDTO.cs" />
     <Compile Include="DTOs\Respuesta\ResponseRespuestaCompletaDTO.cs" />
     <Compile Include="DTOs\Respuesta\ResponseRespuestaDTO.cs" />
+    <Compile Include="DTOs\Rol\CreateRolDTO.cs" />
+    <Compile Include="DTOs\Rol\ResponseRolDTO.cs" />
+    <Compile Include="DTOs\Rol\UpdateRolDTO.cs" />
     <Compile Include="DTOs\TipoCampo\CreateTipoCampoDTO.cs" />
     <Compile Include="DTOs\TipoCampo\ResponseTipoCampoDTO.cs" />
     <Compile Include="DTOs\TipoCampo\UpdateTipoCampoDTO.cs" />
+    <Compile Include="DTOs\Usuario\CreateUsuarioDTO.cs" />
+    <Compile Include="DTOs\Usuario\DetailUsuarioDTO.cs" />
+    <Compile Include="DTOs\Usuario\ResponseUsuarioDTO.cs" />
+    <Compile Include="DTOs\Usuario\UpdateUsuarioDTO.cs" />
+    <Compile Include="Filters\AuthorizeRoleAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\PasswordHelpers.cs" />
     <Compile Include="Interfaces\ICampoEncuestaRepository.cs" />
     <Compile Include="Interfaces\IEncuestaRepository.cs" />
     <Compile Include="Interfaces\IRespuestaDetalleRepository.cs" />
     <Compile Include="Interfaces\IRespuestaOpcionRepository.cs" />
     <Compile Include="Interfaces\IRespuestaRepository.cs" />
+    <Compile Include="Interfaces\IRolRepository.cs" />
     <Compile Include="Interfaces\ITipoCampoRepository.cs" />
+    <Compile Include="Interfaces\IUsuarioRepository.cs" />
     <Compile Include="Models\ACE_CAMPO_ENCUESTA.cs" />
     <Compile Include="Models\ACE_ENCUESTA.cs" />
     <Compile Include="Models\ACE_OPCION_CAMPO.cs" />
     <Compile Include="Models\ACE_RESPUESTA_DETALLE.cs" />
     <Compile Include="Models\ACE_RESPUESTA.cs" />
     <Compile Include="Models\ACE_RESPUESTA_OPCION.cs" />
+    <Compile Include="Models\ACE_ROL.cs" />
     <Compile Include="Models\ACE_TIPO_CAMPO.cs" />
     <Compile Include="Models\ACE_USUARIO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -181,18 +214,26 @@
     <Compile Include="Repositories\RespuestaDetalleRepository.cs" />
     <Compile Include="Repositories\RespuestaOpcionRepository.cs" />
     <Compile Include="Repositories\RespuestaRepository.cs" />
+    <Compile Include="Repositories\RolRepository.cs" />
     <Compile Include="Repositories\TipoCampoRepository.cs" />
+    <Compile Include="Repositories\UsuarioRepository.cs" />
+    <Compile Include="Services\AuthService.cs" />
     <Compile Include="Services\CampoEncuestaService.cs" />
     <Compile Include="Services\DashboardService.cs" />
     <Compile Include="Services\EncuestaRespuestaInternaService.cs" />
     <Compile Include="Services\EncuestaService.cs" />
     <Compile Include="Services\OpcionCampoService.cs" />
     <Compile Include="Services\RespuestaService.cs" />
+    <Compile Include="Services\RolService.cs" />
     <Compile Include="Services\TipoCampoService.cs" />
+    <Compile Include="Services\UsuarioService.cs" />
     <Compile Include="ViewModels\CampoEncuestaFormViewModel.cs" />
     <Compile Include="ViewModels\DashboardFormViewModel.cs" />
+    <Compile Include="ViewModels\LoginFormViewModel.cs" />
     <Compile Include="ViewModels\OpcionCampoFormViewModel.cs" />
     <Compile Include="ViewModels\ResponderEncuestaFormViewModel.cs" />
+    <Compile Include="ViewModels\RolFormViewModel.cs" />
+    <Compile Include="ViewModels\UsuarioFormViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-grid.css" />
@@ -262,6 +303,16 @@
     <Content Include="Views\Respuesta\Detail.cshtml" />
     <Content Include="Views\Encuesta\Publico.cshtml" />
     <Content Include="Views\Encuesta\Gracias.cshtml" />
+    <Content Include="Views\Usuario\Index.cshtml" />
+    <Content Include="Views\Usuario\Create.cshtml" />
+    <Content Include="Views\Usuario\Edit.cshtml" />
+    <Content Include="Views\Rol\Index.cshtml" />
+    <Content Include="Views\Rol\Create.cshtml" />
+    <Content Include="Views\Rol\Edit.cshtml" />
+    <Content Include="Views\Usuario\Detail.cshtml" />
+    <Content Include="Views\Rol\Detail.cshtml" />
+    <Content Include="Views\Auth\Login.cshtml" />
+    <Content Include="Views\Auth\AccesoDenegado.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

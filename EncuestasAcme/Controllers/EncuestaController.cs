@@ -1,4 +1,5 @@
 ﻿using EncuestasAcme.DTOs.Encuesta;
+using EncuestasAcme.Filters;
 using EncuestasAcme.Services;
 using EncuestasAcme.ViewModels;
 using System;
@@ -9,6 +10,8 @@ using System.Web.Mvc;
 
 namespace EncuestasAcme.Controllers
 {
+    [Authorize]
+    [AuthorizeRole("Administrador", "Editor")]
     public class EncuestaController : Controller
     {
         private readonly EncuestaService service;

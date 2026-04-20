@@ -1,0 +1,37 @@
+﻿@model EncuestasAcme.ViewModels.RolFormViewModel
+
+@{
+    ViewBag.Title = "Crear Rol";
+}
+
+<div class="page-intro">
+    <h3>Nuevo rol</h3>
+    <p>Registra un nuevo rol del sistema.</p>
+</div>
+
+<div class="form-card">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-grid">
+            <div class="form-col-6">
+                <label class="form-label">Nombre</label>
+                @Html.TextBoxFor(m => m.CreateDTO.ROL_Nombre, new { @class = "form-control-custom" })
+                @Html.ValidationMessageFor(m => m.CreateDTO.ROL_Nombre, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-col-6">
+                <label class="form-label">Descripción</label>
+                @Html.TextBoxFor(m => m.CreateDTO.ROL_Descripcion, new { @class = "form-control-custom" })
+                @Html.ValidationMessageFor(m => m.CreateDTO.ROL_Descripcion, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary-custom">Guardar</button>
+            <a href="@Url.Action("Index", "Rol")" class="btn btn-outline-custom">Cancelar</a>
+        </div>
+    }
+</div>

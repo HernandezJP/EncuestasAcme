@@ -1,4 +1,5 @@
 ﻿using EncuestasAcme.DTOs.TipoCampo;
+using EncuestasAcme.Filters;
 using EncuestasAcme.Services;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,8 @@ using System.Web.Mvc;
 
 namespace EncuestasAcme.Controllers
 {
+    [Authorize]
+    [AuthorizeRole("Administrador", "Editor")]
     public class TipoCampoController : Controller
     {
         private readonly TipoCampoService service;

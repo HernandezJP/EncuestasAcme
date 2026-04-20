@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "Acceso denegado";
+}
+
+<div class="page-intro">
+    <h3>Acceso denegado</h3>
+    <p>No tienes permisos para acceder a esta pantalla.</p>
+</div>
+
+<div class="section-card">
+    <p>Tu usuario ha iniciado sesión correctamente, pero no cuenta con el rol necesario para ingresar a este módulo.</p>
+
+    <div style="margin-top: 16px;">
+        <a href="@Url.Action("Index", "Dashboard")" class="btn btn-primary">
+            Volver al dashboard
+        </a>
+    </div>
+</div>

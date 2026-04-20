@@ -1,0 +1,53 @@
+﻿@model EncuestasAcme.DTOs.Rol.ResponseRolDTO
+
+@{
+    ViewBag.Title = "Detalle de Rol";
+}
+
+<div class="page-intro">
+    <h3>Detalle de rol</h3>
+    <p>Visualiza la información completa del rol.</p>
+</div>
+
+<div class="section-card">
+    <div class="form-grid">
+        <div class="form-col-6">
+            <label class="form-label">Código</label>
+            <div class="form-control-custom readonly-field">@Model.ROL_Codigo</div>
+        </div>
+
+        <div class="form-col-6">
+            <label class="form-label">Nombre</label>
+            <div class="form-control-custom readonly-field">@Model.ROL_Nombre</div>
+        </div>
+
+        <div class="form-col-12">
+            <label class="form-label">Descripción</label>
+            <div class="form-control-custom readonly-field">@Model.ROL_Descripcion</div>
+        </div>
+
+        <div class="form-col-6">
+            <label class="form-label">Estado</label>
+            <div class="form-control-custom readonly-field">
+                @if (Model.ROL_Estado == "A")
+                {
+                    <span class="badge badge-success">Activo</span>
+                }
+                else
+                {
+                    <span class="badge badge-danger">Inactivo</span>
+                }
+            </div>
+        </div>
+
+        <div class="form-col-6">
+            <label class="form-label">Fecha de creación</label>
+            <div class="form-control-custom readonly-field">@Model.ROL_Fecha_Creacion.ToString("dd/MM/yyyy HH:mm")</div>
+        </div>
+    </div>
+
+    <div class="form-actions" style="margin-top:20px;">
+        <a href="@Url.Action("Index", "Rol")" class="btn btn-outline-custom">Volver</a>
+        <a href="@Url.Action("Edit", "Rol", new { id = Model.ROL_Rol })" class="btn btn-primary-custom">Editar</a>
+    </div>
+</div>

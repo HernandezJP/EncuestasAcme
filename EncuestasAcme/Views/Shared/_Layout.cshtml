@@ -42,16 +42,58 @@
                 </button>
             </div>
 
+            @{
+                var rol = Session["ROL_Nombre"] != null ? Session["ROL_Nombre"].ToString() : "";
+                var esAdmin = rol == "Administrador";
+                var esEditor = rol == "Editor";
+                var esConsulta = rol == "Consulta";
+            }
+
             <nav class="sidebar-nav">
-                <a href="@Url.Action("Index", "Dashboard")" class="nav-item"><i data-lucide="layout-dashboard"></i>Dashboard</a>
-                <a href="@Url.Action("Index", "Encuesta")" class="nav-item"><i data-lucide="clipboard-list"></i>Encuestas</a>
-                <a href="@Url.Action("Index", "CampoEncuesta")" class="nav-item"><i data-lucide="square-menu"></i>Campos de Encuesta</a>
-                <a href="@Url.Action("Index", "TipoCampo")" class="nav-item"><i data-lucide="list-checks"></i>Tipo de Campos</a>
-                <a href="@Url.Action("Index", "Respuesta") " class="nav-item"><i data-lucide="bar-chart-3"></i>Respuestas</a>
-                <a href="#" class="nav-item"><i data-lucide="user-circle"></i>Perfil</a>
+                <a href="@Url.Action("Index", "Dashboard")" class="nav-item">
+                    <i data-lucide="layout-dashboard"></i>Dashboard
+                </a>
+
+                @if (esAdmin || esEditor)
+                {
+                    <a href="@Url.Action("Index", "Encuesta")" class="nav-item">
+                        <i data-lucide="clipboard-list"></i>Encuestas
+                    </a>
+
+                    <a href="@Url.Action("Index", "CampoEncuesta")" class="nav-item">
+                        <i data-lucide="square-menu"></i>Campos de Encuesta
+                    </a>
+
+                    <a href="@Url.Action("Index", "TipoCampo")" class="nav-item">
+                        <i data-lucide="list-checks"></i>Tipo de Campos
+                    </a>
+                }
+
+                @if (esAdmin || esEditor || esConsulta)
+                {
+                    <a href="@Url.Action("Index", "Respuesta")" class="nav-item">
+                        <i data-lucide="bar-chart-3"></i>Respuestas
+                    </a>
+                }
+
+                @if (esAdmin)
+                {
+                    <a href="@Url.Action("Index", "Usuario")" class="nav-item">
+                        <i data-lucide="users"></i>Usuarios
+                    </a>
+
+                    <a href="@Url.Action("Index", "Rol")" class="nav-item">
+                        <i data-lucide="shield"></i>Roles
+                    </a>
+                }
             </nav>
 
             <div class="sidebar-card">
+                <div style="margin-bottom: 14px;">
+                    <strong style="display:block; color:#0f172a;">@Session["USU_NombreCompleto"]</strong>
+                    <span style="color:#64748b; font-size:13px;">@Session["ROL_Nombre"]</span>
+                </div>
+
                 <form action="@Url.Action("Logout", "Auth")" method="post">
                     @Html.AntiForgeryToken()
                     <button type="submit" class="btn-logout">

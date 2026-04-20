@@ -1,0 +1,38 @@
+﻿@model EncuestasAcme.ViewModels.RolFormViewModel
+
+@{
+    ViewBag.Title = "Editar Rol";
+}
+
+<div class="page-intro">
+    <h3>Editar rol</h3>
+    <p>Actualiza la información del rol.</p>
+</div>
+
+<div class="form-card">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.UpdateDTO.ROL_Rol)
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-grid">
+            <div class="form-col-6">
+                <label class="form-label">Nombre</label>
+                @Html.TextBoxFor(m => m.UpdateDTO.ROL_Nombre, new { @class = "form-control-custom" })
+                @Html.ValidationMessageFor(m => m.UpdateDTO.ROL_Nombre, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-col-6">
+                <label class="form-label">Descripción</label>
+                @Html.TextBoxFor(m => m.UpdateDTO.ROL_Descripcion, new { @class = "form-control-custom" })
+                @Html.ValidationMessageFor(m => m.UpdateDTO.ROL_Descripcion, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary-custom">Actualizar</button>
+            <a href="@Url.Action("Index", "Rol")" class="btn btn-outline-custom">Cancelar</a>
+        </div>
+    }
+</div>

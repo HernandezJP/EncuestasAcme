@@ -13,6 +13,7 @@ namespace EncuestasAcme.Data
         {
         }
         public DbSet<ACE_USUARIO> Usuarios { get; set; }
+        public DbSet<ACE_ROL> Roles { get; set; }
         public DbSet<ACE_TIPO_CAMPO> TiposCampo { get; set; }
         public DbSet<ACE_ENCUESTA> Encuestas { get; set; }
         public DbSet<ACE_CAMPO_ENCUESTA> CamposEncuesta { get; set; }
@@ -26,6 +27,7 @@ namespace EncuestasAcme.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<ACE_USUARIO>().ToTable("ACE_USUARIO").HasKey(x => x.USU_Usuario);
+            modelBuilder.Entity<ACE_ROL>().ToTable("ACE_ROL").HasKey(x => x.ROL_Rol);
             modelBuilder.Entity<ACE_TIPO_CAMPO>().ToTable("ACE_TIPO_CAMPO").HasKey(x => x.TCA_Tipo_Campo);
             modelBuilder.Entity<ACE_ENCUESTA>().ToTable("ACE_ENCUESTA").HasKey(x => x.ENC_Encuesta);
             modelBuilder.Entity<ACE_CAMPO_ENCUESTA>().ToTable("ACE_CAMPO_ENCUESTA").HasKey(x => x.CAM_Campo);

@@ -1,0 +1,100 @@
+﻿@model List<EncuestasAcme.DTOs.Usuario.ResponseUsuarioDTO>
+
+@{
+    ViewBag.Title = "Usuarios";
+}
+
+<div class="page-intro">
+    <h3>Usuarios</h3>
+    <p>Administración de usuarios del sistema.</p>
+</div>
+
+@if (TempData["Success"] != null)
+{
+    <div class="section-card" style="margin-bottom: 16px; border-left: 4px solid #16a34a;">
+        <p>@TempData["Success"]</p>
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="section-card" style="margin-bottom: 16px; border-left: 4px solid #dc2626;">
+        <p>@TempData["Error"]</p>
+    </div>
+}
+
+<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+    <div></div>
+    <a href="@Url.Action("Create", "Usuario")" class="btn btn-primary-custom">
+        Nuevo usuario
+    </a>
+</div>
+
+<div class="table-card">
+    <div class="table-responsive">
+        <table class="custom-table">
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Username</th>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                    <th>Rol</th>
+                    <th>Estado</th>
+                    <th style="width:120px;">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Count > 0)
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.USU_Codigo</td>
+                            <td>@item.USU_User_Name</td>
+                            <td>@item.NombreCompleto</td>
+                            <td>@item.USU_Correo_Electronico</td>
+                            <td>@item.ROL_Nombre</td>
+                            <td>@item.USU_Estado</td>
+                            <td>
+                                <div class="actions-container">
+
+                                    <a href="@Url.Action("Detail", "Usuario", new { id = item.USU_Usuario })" class="btn-icon btn-secondary">
+                                        <i data-lucide="eye"></i>
+                                    </a>
+
+                                    <a href="@Url.Action("Edit", "Usuario", new { id = item.USU_Usuario })" class="btn-icon">
+                                        <i data-lucide="pencil"></i>
+                                    </a>
+
+                                    @if (item.USU_Estado == "A")
+                                    {
+                                        <a href="@Url.Action("Delete", "Usuario", new { id = item.USU_Usuario })"
+                                           class="btn-icon btn-danger"
+                                           onclick="return confirm('¿Deseas inactivar este usuario?');">
+                                            <i data-lucide="user-x"></i>
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a href="@Url.Action("Activar", "Usuario", new { id = item.USU_Usuario })"
+                                           class="btn-icon btn-success"
+                                           onclick="return confirm('¿Deseas activar este usuario?');">
+                                            <i data-lucide="user-check"></i>
+                                        </a>
+                                    }
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="7">No hay usuarios registrados.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

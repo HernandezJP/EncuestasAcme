@@ -1,0 +1,107 @@
+﻿@model List<EncuestasAcme.DTOs.Rol.ResponseRolDTO>
+
+@{
+    ViewBag.Title = "Roles";
+}
+
+<div class="page-intro">
+    <h3>Roles</h3>
+    <p>Administración de roles del sistema.</p>
+</div>
+
+@if (TempData["Success"] != null)
+{
+    <div class="section-card" style="margin-bottom: 16px; border-left: 4px solid #16a34a;">
+        <p>@TempData["Success"]</p>
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="section-card" style="margin-bottom: 16px; border-left: 4px solid #dc2626;">
+        <p>@TempData["Error"]</p>
+    </div>
+}
+
+<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+    <div></div>
+    <a href="@Url.Action("Create", "Rol")" class="btn btn-primary-custom">
+        Nuevo rol
+    </a>
+</div>
+
+<div class="table-card">
+    <div class="table-responsive">
+        <table class="custom-table">
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Estado</th>
+                    <th>Fecha creación</th>
+                    <th style="width:120px;">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Count > 0)
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.ROL_Codigo</td>
+                            <td>@item.ROL_Nombre</td>
+                            <td>@item.ROL_Descripcion</td>
+                            <td>
+                                @if (item.ROL_Estado == "A")
+                                {
+                                    <span class="badge badge-success">Activo</span>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-danger">Inactivo</span>
+                                }
+                            </td>
+                            <td>@item.ROL_Fecha_Creacion.ToString("dd/MM/yyyy HH:mm")</td>
+                            <td>
+                                <div class="actions-container">
+
+                                    <a href="@Url.Action("Detail", "Rol", new { id = item.ROL_Rol })" class="btn-icon btn-secondary">
+                                        <i data-lucide="eye"></i>
+                                    </a>
+
+                                    <a href="@Url.Action("Edit", "Rol", new { id = item.ROL_Rol })" class="btn-icon">
+                                        <i data-lucide="pencil"></i>
+                                    </a>
+
+                                    @if (item.ROL_Estado == "A")
+                                    {
+                                        <a href="@Url.Action("Delete", "Rol", new { id = item.ROL_Rol })"
+                                           class="btn-icon btn-danger"
+                                           onclick="return confirm('¿Deseas inactivar este rol?');">
+                                            <i data-lucide="shield-x"></i>
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a href="@Url.Action("Activar", "Rol", new { id = item.ROL_Rol })"
+                                           class="btn-icon btn-success"
+                                           onclick="return confirm('¿Deseas activar este rol?');">
+                                            <i data-lucide="shield-check"></i>
+                                        </a>
+                                    }
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="6">No hay roles registrados.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

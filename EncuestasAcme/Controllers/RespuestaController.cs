@@ -1,4 +1,5 @@
-﻿using EncuestasAcme.Services;
+﻿using EncuestasAcme.Filters;
+using EncuestasAcme.Services;
 using EncuestasAcme.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,8 @@ using System.Web.Mvc;
 
 namespace EncuestasAcme.Controllers
 {
+    [Authorize]
+    [AuthorizeRole("Administrador", "Editor", "Consulta")]
     public class RespuestaController : Controller
     {
         private readonly RespuestaService service;

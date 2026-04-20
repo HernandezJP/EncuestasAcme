@@ -1,12 +1,15 @@
-﻿using System;
+﻿using EncuestasAcme.Filters;
+using EncuestasAcme.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using EncuestasAcme.Services;
 
 namespace EncuestasAcme.Controllers
 {
+    [Authorize]
+    [AuthorizeRole("Administrador", "Editor", "Consulta")]
     public class DashboardController : Controller
     {
         private readonly DashboardService service;
