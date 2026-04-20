@@ -1,0 +1,22 @@
+
+---
+# Ejecución local
+
+1. Clonar el repositorio
+2. Abrir solución en Visual Studio
+3. Restaurar paquetes NuGet
+4. Ejecutar:
+
+   - `AcmeEcnuestas.sql`
+
+5. Configurar cadena de conexión en `Web.config`
+6. Ejecutar el proyecto
+
+---
+
+## Acceso público
+
+1. Las encuestas se pueden responder mediante: /Encuesta/Publico/{token}
+
+
+
