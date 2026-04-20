@@ -1,0 +1,71 @@
+# Seguridad: Hashing de Contraseñas y Token de Encuestas
+
+El sistema implementa mecanismos de seguridad enfocados en la protección de credenciales y el acceso controlado a encuestas públicas.
+
+---
+
+##  Hashing de contraseñas
+
+Para el manejo de contraseñas se utiliza el algoritmo **BCrypt**.
+
+### ¿Por qué usar hashing?
+
+Las contraseñas no deben almacenarse en texto plano, ya que esto representa un riesgo en caso de acceso no autorizado a la base de datos.
+
+El hashing permite almacenar una versión irreversible de la contraseña.
+
+---
+
+### ¿Por qué BCrypt?
+
+BCrypt fue seleccionado porque:
+
+- Está diseñado específicamente para contraseñas
+- Genera un **salt automático**
+- Evita que contraseñas iguales generen el mismo hash
+- Es resistente a ataques de fuerza bruta
+
+---
+
+### Funcionamiento
+
+1. El usuario registra una contraseña
+2. Se genera un hash con BCrypt
+3. El hash se almacena en la base de datos
+
+
+
+
+---
+
+### Justificación del uso de GUID
+
+Se eligió GUID como token por las siguientes razones:
+
+- **Unicidad garantizada**:  
+  Cada token es único a nivel global.
+
+- **No secuencial**:  
+  A diferencia de los IDs numéricos, no sigue un patrón predecible.
+
+- **Dificultad de adivinanza**:  
+  Es prácticamente imposible generar tokens válidos manualmente.
+
+- **Seguridad en acceso público**:  
+  Evita que usuarios accedan a encuestas cambiando valores en la URL.
+
+---
+
+### Problema que se evita
+
+Si se utilizara un ID numérico:
+Un usuario podría modificar la URL y acceder a otras encuestas.
+
+Con GUID:
+Esto no es predecible.
+
+---
+
+### Uso en el sistema
+
+El token se utiliza para acceder a encuestas públicas:
