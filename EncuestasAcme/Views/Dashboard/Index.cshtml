@@ -1,7 +1,102 @@
-﻿@{
+﻿@model EncuestasAcme.ViewModels.DashboardFormViewModel
+
+@{
     ViewBag.Title = "Dashboard";
 }
 
-<main>
+<div class="page-intro">
+    <h3>Dashboard</h3>
+    <p>Resumen general del sistema de encuestas.</p>
+</div>
 
-</main>
+<div class="dashboard-wrapper">
+    <div class="dashboard-grid">
+        <div class="dashboard-card">
+            <div class="dashboard-card-icon">
+                <i data-lucide="clipboard-list"></i>
+            </div>
+            <div class="dashboard-card-body">
+                <span class="dashboard-card-label">Encuestas activas</span>
+                <h2>@Model.TotalEncuestas</h2>
+                <small>Encuestas disponibles en el sistema</small>
+            </div>
+        </div>
+
+        <div class="dashboard-card">
+            <div class="dashboard-card-icon">
+                <i data-lucide="square-menu"></i>
+            </div>
+            <div class="dashboard-card-body">
+                <span class="dashboard-card-label">Campos registrados</span>
+                <h2>@Model.TotalCampos</h2>
+                <small>Total de campos configurados</small>
+            </div>
+        </div>
+
+        <div class="dashboard-card">
+            <div class="dashboard-card-icon">
+                <i data-lucide="bar-chart-3"></i>
+            </div>
+            <div class="dashboard-card-body">
+                <span class="dashboard-card-label">Respuestas recibidas</span>
+                <h2>@Model.TotalRespuestas</h2>
+                <small>Participaciones registradas</small>
+            </div>
+        </div>
+
+        <div class="dashboard-card dashboard-highlight">
+            <div class="dashboard-card-icon">
+                <i data-lucide="sparkles"></i>
+            </div>
+            <div class="dashboard-card-body">
+                <span class="dashboard-card-label">Última encuesta</span>
+                <h2>@Model.UltimaEncuestaNombre</h2>
+                <small>@Model.UltimaEncuestaFecha</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard-content-grid">
+        <div class="section-card">
+            <div class="section-header">
+                <h4>Últimas respuestas</h4>
+            </div>
+
+            <div class="table-responsive">
+                <table class="custom-table">
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Encuesta</th>
+                            <th>Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.UltimasRespuestas != null && Model.UltimasRespuestas.Count > 0)
+                        {
+                            foreach (var item in Model.UltimasRespuestas)
+                            {
+                                <tr>
+                                    <td>@item.Codigo</td>
+                                    <td>@item.Encuesta</td>
+                                    <td>@item.Fecha</td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="3">No hay respuestas registradas.</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+    lucide.createIcons();
+</script>

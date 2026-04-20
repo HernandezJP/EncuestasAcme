@@ -1,0 +1,75 @@
+﻿@model EncuestasAcme.DTOs.Respuesta.ResponseRespuestaCompletaDTO
+
+@{
+    ViewBag.Title = "Detalle de Respuesta";
+}
+
+<div class="page-intro">
+    <h3>Detalle de respuesta</h3>
+    <p>Visualización completa de la respuesta.</p>
+</div>
+
+<div class="section-card" style="margin-bottom:20px;">
+    <div class="form-grid">
+        <div class="form-col-6">
+            <label class="form-label">Código</label>
+            <div class="form-control-custom">@Model.RES_Codigo</div>
+        </div>
+        <div class="form-col-6">
+            <label class="form-label">Encuesta</label>
+            <div class="form-control-custom">@Model.ENC_Nombre</div>
+        </div>
+        <div class="form-col-6">
+            <label class="form-label">Fecha</label>
+            <div class="form-control-custom">@Model.RES_Fecha.ToString("dd/MM/yyyy HH:mm")</div>
+        </div>
+        <div class="form-col-6">
+            <label class="form-label">IP</label>
+            <div class="form-control-custom">@Model.RES_IP</div>
+        </div>
+    </div>
+</div>
+
+<div class="table-card">
+    <div class="table-responsive">
+        <table class="custom-table">
+            <thead>
+                <tr>
+                    <th>Campo</th>
+                    <th>Tipo</th>
+                    <th>Texto</th>
+                    <th>Número</th>
+                    <th>Opciones</th>
+                    <th>Fecha</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Detalles != null && Model.Detalles.Count > 0)
+                {
+                    foreach (var item in Model.Detalles)
+                    {
+                        <tr>
+                            <td>@item.CAM_Titulo_Visible</td>
+                            <td>@item.TCA_Descripcion</td>
+                            <td>@item.RED_Valor_Texto</td>
+                            <td>@item.RED_Valor_Numero</td>
+                            <td>@item.OpcionesSeleccionadas</td>    
+                            <td>@(item.RED_Valor_Fecha.HasValue ? item.RED_Valor_Fecha.Value.ToString("dd/MM/yyyy") : "")</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5">No hay detalles registrados.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="form-actions" style="margin-top:20px;">
+    <a href="@Url.Action("Index", "Respuesta")" class="btn btn-outline-custom">Volver</a>
+</div>

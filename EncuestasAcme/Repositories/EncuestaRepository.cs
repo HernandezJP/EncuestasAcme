@@ -66,5 +66,11 @@ namespace EncuestasAcme.Repositories
 
             return query.Any();
         }
+
+        public ACE_ENCUESTA ObtenerPorToken(Guid token)
+        {
+            return db.Encuestas
+                .FirstOrDefault(x => x.ENC_Token_Publico == token && x.ENC_Estado == "A");
+        }
     }
 }

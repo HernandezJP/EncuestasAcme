@@ -1,0 +1,181 @@
+﻿@model EncuestasAcme.ViewModels.ResponderEncuestaFormViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@Model.Encuesta.ENC_Nombre</title>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f3f4f6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: auto;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 14px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+
+        .title {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .description {
+            color: #6b7280;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-label {
+            font-weight: 500;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .required {
+            color: red;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #d1d5db;
+            font-size: 14px;
+        }
+
+        .option {
+            margin-bottom: 6px;
+        }
+
+        .btn {
+            margin-top: 10px;
+            background: #2563eb;
+            color: white;
+            padding: 12px;
+            width: 100%;
+            border-radius: 10px;
+            border: none;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn:hover {
+            background: #1e40af;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 15px;
+            color: #9ca3af;
+            font-size: 12px;
+        }
+}
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="card">
+
+            <div class="title">@Model.Encuesta.ENC_Nombre</div>
+            <div class="description">@Model.Encuesta.ENC_Descripcion</div>
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.Respuesta.ENC_Encuesta)
+
+                for (int i = 0; i < Model.Encuesta.Campos.Count; i++)
+                {
+                    var campo = Model.Encuesta.Campos[i];
+
+                    @Html.HiddenFor(m => m.Respuesta.Campos[i].CAM_Campo)
+                    @Html.HiddenFor(m => m.Respuesta.Campos[i].TCA_Clave)
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            @campo.CAM_Titulo_Visible
+                            @if (campo.CAM_Es_Requerido)
+                            {
+                                <span class="required">*</span>
+                            }
+                        </label>
+
+                        @if (campo.TCA_Clave == "TXT")
+                        {
+                            @Html.TextBoxFor(m => m.Respuesta.Campos[i].ValorTexto, new { @class = "form-control" })
+                        }
+                        else if (campo.TCA_Clave == "NUM")
+                        {
+                            @Html.TextBoxFor(m => m.Respuesta.Campos[i].ValorNumero, new { @class = "form-control", type = "number", step = "0.01" })
+                        }
+                        else if (campo.TCA_Clave == "FEC")
+                        {
+                            @Html.TextBoxFor(m => m.Respuesta.Campos[i].ValorFecha, new { @class = "form-control", type = "date" })
+                        }
+                        else if (campo.TCA_Clave == "SELU")
+                        {
+                            foreach (var op in campo.Opciones)
+                            {
+                                <div class="option">
+                                    <label>
+                                        <input type="radio"
+                                               name="Respuesta.Campos[@i].OpcionSeleccionada"
+                                               value="@op.OPC_Opcion" />
+                                        @op.OPC_Texto
+                                    </label>
+                                </div>
+                            }
+                        }
+                        else if (campo.TCA_Clave == "SELM")
+                        {
+                            foreach (var op in campo.Opciones)
+                            {
+                                <div class="option">
+                                    <label>
+                                        <input type="checkbox"
+                                               name="Respuesta.Campos[@i].OpcionesSeleccionadas"
+                                               value="@op.OPC_Opcion" />
+                                        @op.OPC_Texto
+                                    </label>
+                                </div>
+                            }
+                        }
+                    </div>
+                }
+
+                <button type="submit" class="btn">Enviar respuesta</button>
+            }
+
+            <div class="footer">
+                Encuesta pública • AcmeEncuestas
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

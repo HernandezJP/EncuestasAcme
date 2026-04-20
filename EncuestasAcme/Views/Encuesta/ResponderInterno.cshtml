@@ -1,0 +1,85 @@
+﻿@model EncuestasAcme.ViewModels.ResponderEncuestaFormViewModel
+
+@{
+    ViewBag.Title = "Responder Encuesta";
+}
+
+<div class="page-intro">
+    <h3>@Model.Encuesta.ENC_Nombre</h3>
+    <p>@Model.Encuesta.ENC_Descripcion</p>
+</div>
+
+<div class="form-card">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.Respuesta.ENC_Encuesta)
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        for (int i = 0; i < Model.Encuesta.Campos.Count; i++)
+        {
+            var campo = Model.Encuesta.Campos[i];
+
+            @Html.HiddenFor(m => m.Respuesta.Campos[i].CAM_Campo)
+            @Html.HiddenFor(m => m.Respuesta.Campos[i].TCA_Clave)
+
+            <div class="form-col-12" style="margin-bottom:20px;">
+                <label class="form-label">
+                    @campo.CAM_Titulo_Visible
+                    @if (campo.CAM_Es_Requerido)
+                    {
+                        <span style="color:red;">*</span>
+                    }
+
+                    
+                </label>
+
+                @if (campo.TCA_Clave == "TXT")
+                {
+                    @Html.TextBoxFor(m => m.Respuesta.Campos[i].ValorTexto, new { @class = "form-control-custom" })
+                }
+                else if (campo.TCA_Clave == "NUM")
+                {
+                    @Html.TextBoxFor(m => m.Respuesta.Campos[i].ValorNumero, new { @class = "form-control-custom", type = "number", step = "0.01" })
+                }
+                else if (campo.TCA_Clave == "FEC")
+                {
+                    @Html.TextBoxFor(m => m.Respuesta.Campos[i].ValorFecha, new { @class = "form-control-custom", type = "date" })
+                }
+                else if (campo.TCA_Clave == "SELU")
+                {
+                    foreach (var opcion in campo.Opciones)
+                    {
+                        <div style="margin-bottom:6px;">
+                            <label>
+                                <input type="radio"
+                                       name="Respuesta.Campos[@i].OpcionSeleccionada"
+                                       value="@opcion.OPC_Opcion" />
+                                @opcion.OPC_Texto
+                            </label>
+                        </div>
+                    }
+                }
+                else if (campo.TCA_Clave == "SELM")
+                {
+                    foreach (var opcion in campo.Opciones)
+                    {
+                        <div style="margin-bottom:6px;">
+                            <label>
+                                <input type="checkbox"
+                                       name="Respuesta.Campos[@i].OpcionesSeleccionadas"
+                                       value="@opcion.OPC_Opcion" />
+                                @opcion.OPC_Texto
+                            </label>
+                        </div>
+                    }
+                }
+            </div>
+        }
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary-custom">Enviar respuesta</button>
+            <a href="@Url.Action("Index", "Encuesta")" class="btn btn-outline-custom">Cancelar</a>
+        </div>
+    }
+</div>

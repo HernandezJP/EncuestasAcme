@@ -131,6 +131,7 @@
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\EncuestaController.cs" />
     <Compile Include="Controllers\OpcionCampoController.cs" />
+    <Compile Include="Controllers\RespuestaController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\TipoCampoController.cs" />
     <Compile Include="Data\ApplicationDbContext.cs" />
@@ -139,11 +140,19 @@
     <Compile Include="DTOs\CampoEncuesta\UpdateCampoEncuestaDTO.cs" />
     <Compile Include="DTOs\Encuesta\CreateEncuestaDTO.cs" />
     <Compile Include="DTOs\Encuesta\DetailEncuestaDTO.cs" />
+    <Compile Include="DTOs\Encuesta\ResponderEncuestaDTO.cs" />
+    <Compile Include="DTOs\Encuesta\ResponseEncuestaDetalleDTO.cs" />
     <Compile Include="DTOs\Encuesta\ResponseEncuestaDTO.cs" />
+    <Compile Include="DTOs\Encuesta\ResponderEncuestaCampoDTO.cs" />
     <Compile Include="DTOs\Encuesta\UpdateEncuestaDTO.cs" />
     <Compile Include="DTOs\OpcionCampo\CreateOpcionCampoDTO.cs" />
+    <Compile Include="DTOs\OpcionCampo\ResponseOpcionCampoSimpleDTO.cs" />
     <Compile Include="DTOs\OpcionCampo\ResponseOpcionCampoDTO.cs" />
     <Compile Include="DTOs\OpcionCampo\UpdateOpcionCampoDTO.cs" />
+    <Compile Include="DTOs\RespuestaDetalle\ResponseRespuestaDetalleDTO.cs" />
+    <Compile Include="DTOs\Respuesta\CreateRespuestaDTO.cs" />
+    <Compile Include="DTOs\Respuesta\ResponseRespuestaCompletaDTO.cs" />
+    <Compile Include="DTOs\Respuesta\ResponseRespuestaDTO.cs" />
     <Compile Include="DTOs\TipoCampo\CreateTipoCampoDTO.cs" />
     <Compile Include="DTOs\TipoCampo\ResponseTipoCampoDTO.cs" />
     <Compile Include="DTOs\TipoCampo\UpdateTipoCampoDTO.cs" />
@@ -152,6 +161,9 @@
     </Compile>
     <Compile Include="Interfaces\ICampoEncuestaRepository.cs" />
     <Compile Include="Interfaces\IEncuestaRepository.cs" />
+    <Compile Include="Interfaces\IRespuestaDetalleRepository.cs" />
+    <Compile Include="Interfaces\IRespuestaOpcionRepository.cs" />
+    <Compile Include="Interfaces\IRespuestaRepository.cs" />
     <Compile Include="Interfaces\ITipoCampoRepository.cs" />
     <Compile Include="Models\ACE_CAMPO_ENCUESTA.cs" />
     <Compile Include="Models\ACE_ENCUESTA.cs" />
@@ -166,13 +178,21 @@
     <Compile Include="Repositories\EncuestaRepository.cs" />
     <Compile Include="Interfaces\IOpcionCampoRepository.cs" />
     <Compile Include="Repositories\OpcionCampoRepository.cs" />
+    <Compile Include="Repositories\RespuestaDetalleRepository.cs" />
+    <Compile Include="Repositories\RespuestaOpcionRepository.cs" />
+    <Compile Include="Repositories\RespuestaRepository.cs" />
     <Compile Include="Repositories\TipoCampoRepository.cs" />
     <Compile Include="Services\CampoEncuestaService.cs" />
+    <Compile Include="Services\DashboardService.cs" />
+    <Compile Include="Services\EncuestaRespuestaInternaService.cs" />
     <Compile Include="Services\EncuestaService.cs" />
     <Compile Include="Services\OpcionCampoService.cs" />
+    <Compile Include="Services\RespuestaService.cs" />
     <Compile Include="Services\TipoCampoService.cs" />
     <Compile Include="ViewModels\CampoEncuestaFormViewModel.cs" />
+    <Compile Include="ViewModels\DashboardFormViewModel.cs" />
     <Compile Include="ViewModels\OpcionCampoFormViewModel.cs" />
+    <Compile Include="ViewModels\ResponderEncuestaFormViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-grid.css" />
@@ -237,6 +257,11 @@
     <Content Include="Views\OpcionCampo\PorCampo.cshtml" />
     <Content Include="Views\OpcionCampo\Create.cshtml" />
     <Content Include="Views\OpcionCampo\Edit.cshtml" />
+    <Content Include="Views\Respuesta\Index.cshtml" />
+    <Content Include="Views\Encuesta\ResponderInterno.cshtml" />
+    <Content Include="Views\Respuesta\Detail.cshtml" />
+    <Content Include="Views\Encuesta\Publico.cshtml" />
+    <Content Include="Views\Encuesta\Gracias.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

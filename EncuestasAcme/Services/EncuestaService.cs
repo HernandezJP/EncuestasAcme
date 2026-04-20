@@ -123,5 +123,30 @@ namespace EncuestasAcme.Services
 
             repository.Actualizar(encuesta);
         }
+
+        public DetailEncuestaDTO ObtenerPorToken(Guid token)
+        {
+            var encuesta = repository.ObtenerPorToken(token);
+
+            if (encuesta == null)
+            {
+                return null;
+            }
+
+            var campoService = new CampoEncuestaService();
+            var campos = campoService.ObtenerPorEncuesta(encuesta.ENC_Encuesta);
+
+            return new DetailEncuestaDTO
+            {
+                ENC_Encuesta = encuesta.ENC_Encuesta,
+                ENC_Codigo = encuesta.ENC_Codigo,
+                ENC_Nombre = encuesta.ENC_Nombre,
+                ENC_Descripcion = encuesta.ENC_Descripcion,
+                ENC_Token_Publico = encuesta.ENC_Token_Publico,
+                ENC_Estado = encuesta.ENC_Estado,
+                ENC_Fecha_Creacion = encuesta.ENC_Fecha_Creacion,
+                Campos = campos
+            };
+        }
     }
 }

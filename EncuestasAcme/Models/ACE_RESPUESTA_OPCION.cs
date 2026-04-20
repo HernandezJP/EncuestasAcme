@@ -11,5 +11,8 @@ namespace EncuestasAcme.Models
         public string ROP_Codigo { get; set; }
         public int RED_Detalle { get; set; }
         public int OPC_Opcion { get; set; }
+
+        public virtual ACE_RESPUESTA_DETALLE RespuestaDetalle { get; set; }
+        public virtual ACE_OPCION_CAMPO OpcionCampo { get; set; }
     }
 }

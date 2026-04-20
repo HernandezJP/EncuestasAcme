@@ -11,6 +11,7 @@ namespace EncuestasAcme.Interfaces
     {
         List<ACE_ENCUESTA> ObtenerTodas();
         ACE_ENCUESTA ObtenerPorId(int id);
+        ACE_ENCUESTA ObtenerPorToken(Guid token);
         ACE_ENCUESTA Crear(ACE_ENCUESTA encuesta);
         void Actualizar(ACE_ENCUESTA encuesta);
         void Eliminar(int id);
