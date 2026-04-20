@@ -46,4 +46,4 @@ AcmeEncuestas permite crear encuestas dinámicas con distintos tipos de pregunta
 ---
 
 ## 🗄 Base de datos
--El script necesario es el que lleva por nombre AcmeEcnuestas.sql
+- El script necesario para la creación de las entidades y los datos de prueba lleva por nombre AcmeEcnuestas.sql
