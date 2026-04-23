@@ -10,7 +10,8 @@ using System.Web.Mvc;
 
 namespace EncuestasAcme.Controllers
 {
-    
+    [Authorize]
+    [AuthorizeRole("Administrador", "Editor")]
     public class EncuestaController : Controller
     {
         private readonly EncuestaService service;
