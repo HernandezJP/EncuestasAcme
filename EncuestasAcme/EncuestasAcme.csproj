@@ -147,6 +147,7 @@
     <Compile Include="Controllers\CampoEncuestaController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\EncuestaController.cs" />
+    <Compile Include="Controllers\EncuestaPublicaController.cs" />
     <Compile Include="Controllers\OpcionCampoController.cs" />
     <Compile Include="Controllers\RespuestaController.cs" />
     <Compile Include="Controllers\RolController.cs" />
@@ -301,8 +302,8 @@
     <Content Include="Views\Respuesta\Index.cshtml" />
     <Content Include="Views\Encuesta\ResponderInterno.cshtml" />
     <Content Include="Views\Respuesta\Detail.cshtml" />
-    <Content Include="Views\Encuesta\Publico.cshtml" />
-    <Content Include="Views\Encuesta\Gracias.cshtml" />
+    <Content Include="Views\EncuestaPublica\Responder.cshtml" />
+    <Content Include="Views\EncuestaPublica\Gracias.cshtml" />
     <Content Include="Views\Usuario\Index.cshtml" />
     <Content Include="Views\Usuario\Create.cshtml" />
     <Content Include="Views\Usuario\Edit.cshtml" />

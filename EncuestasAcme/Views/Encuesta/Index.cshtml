@@ -55,7 +55,7 @@
                             <td>
                                 <div class="actions-container">
 
-                                    <a href="@Url.Action("Publico", "Encuesta", new { id = item.ENC_Token_Publico })"
+                                    <a href="@Url.Action("Responder", "EncuestaPublica", new { id = item.ENC_Token_Publico })"
                                        class="btn-icon btn-info"
                                        data-tooltip="Vista pública"
                                        target="_blank">
@@ -65,7 +65,7 @@
                                     <a href="javascript:void(0);"
                                        class="btn-icon btn-warning"
                                        data-tooltip="Copiar link"
-                                       onclick="copiarLinkPublico('@Url.Action("Publico", "Encuesta", new { id = item.ENC_Token_Publico }, Request.Url.Scheme)')">
+                                       onclick="copiarLinkPublico('@Url.Action("Responder", "EncuestaPublica", new { id = item.ENC_Token_Publico }, Request.Url.Scheme)')">
                                         <i data-lucide="copy"></i>
                                     </a>
 

@@ -10,8 +10,7 @@ using System.Web.Mvc;
 
 namespace EncuestasAcme.Controllers
 {
-    [Authorize]
-    [AuthorizeRole("Administrador", "Editor")]
+    
     public class EncuestaController : Controller
     {
         private readonly EncuestaService service;
@@ -190,62 +189,6 @@ namespace EncuestasAcme.Controllers
                 var encuesta = service.ObtenerDetalle(vm.Respuesta.ENC_Encuesta);
                 vm.Encuesta = encuesta;
                 ModelState.AddModelError("", ex.Message);
-                return View(vm);
-            }
-        }
-
-        public ActionResult Publico(Guid id)
-        {
-            var encuesta = service.ObtenerPorToken(id);
-
-            if (encuesta == null)
-            {
-                return HttpNotFound();
-            }
-
-            var vm = new ResponderEncuestaFormViewModel
-            {
-                Encuesta = encuesta,
-                Respuesta = new ResponderEncuestaDTO
-                {
-                    ENC_Encuesta = encuesta.ENC_Encuesta,
-                    Campos = encuesta.Campos.Select(c => new ResponderEncuestaCampoDTO
-                    {
-                        CAM_Campo = c.CAM_Campo,
-                        TCA_Clave = c.TCA_Clave
-                    }).ToList()
-                }
-            };
-
-            return View(vm);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Publico(ResponderEncuestaFormViewModel vm)
-        {
-            try
-            {
-                var encuesta = service.ObtenerPorId(vm.Respuesta.ENC_Encuesta);
-
-                if (encuesta == null)
-                {
-                    return HttpNotFound();
-                }
-
-                var respuestaService = new EncuestaRespuestaInternaService();
-
-                respuestaService.GuardarRespuesta(
-                    vm.Respuesta,
-                    Request.UserHostAddress,
-                    Request.UserAgent
-                );
-
-                return View("Gracias");
-            }
-            catch
-            {
-                vm.Encuesta = service.ObtenerDetalle(vm.Respuesta.ENC_Encuesta);
                 return View(vm);
             }
         }

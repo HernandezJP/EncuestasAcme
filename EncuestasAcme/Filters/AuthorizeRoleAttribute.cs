@@ -16,6 +16,25 @@ namespace EncuestasAcme.Filters
             _rolesPermitidos = rolesPermitidos ?? new string[0];
         }
 
+        public override void OnAuthorization(AuthorizationContext filterContext)
+        {
+            if (filterContext == null)
+            {
+                throw new ArgumentNullException(nameof(filterContext));
+            }
+
+            bool allowAnonymous =
+                filterContext.ActionDescriptor.IsDefined(typeof(AllowAnonymousAttribute), inherit: true) ||
+                filterContext.ActionDescriptor.ControllerDescriptor.IsDefined(typeof(AllowAnonymousAttribute), inherit: true);
+
+            if (allowAnonymous)
+            {
+                return;
+            }
+
+            base.OnAuthorization(filterContext);
+        }
+
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
             if (httpContext == null)
