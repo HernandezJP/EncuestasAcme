@@ -1,22 +1,44 @@
-
 ---
 # Ejecución local
 
-1. Clonar el repositorio
-2. Abrir solución en Visual Studio
-3. Restaurar paquetes NuGet
-4. Ejecutar:
+1. Clonar el repositorio.
 
-   - `AcmeEcnuestas.sql`
+2. Abrir la solución en Visual Studio.
 
-5. Configurar cadena de conexión en `Web.config`
-6. Ejecutar el proyecto
+3. Configurar la cadena de conexión en `Web.config`.
 
----
+   Ejemplo para SQL Server Express:
 
-## Acceso público
+   xml
+   <add name="DefaultConnection"
+        connectionString="Server=.\SQLEXPRESS;Database=EncuestasAcme;Trusted_Connection=True;TrustServerCertificate=True;Connect Timeout=30"
+        providerName="System.Data.SqlClient" />
 
-1. Las encuestas se pueden responder mediante: /Encuesta/Publico/{token}
+4. Abrir la Consola del Administrador de Paquetes.
+   Ruta
+      Tools > NuGet Package Manager > Package Manager Console
+
+5. Restaurar o reinstalar los paquetes NuGet.
+   Comando
+      Update-Package -reinstall
+
+6. Si aparece el error relacionado con Roslyn:
+   bin\roslyn\csc.exe
+      Ejecutar
+         Update-Package Microsoft.CodeDom.Providers.DotNetCompilerPlatform -reinstall
+         Update-Package Microsoft.Net.Compilers -reinstall
+
+7. Compilar nuevamente el proyecto.
+   Build > Clean Solution
+   Build > Rebuild Solution
+
+8. Ejecutar el proyecto por primera vez.
+   La aplicación crea automáticamente la base de datos EncuestasAcme
+   Aplica las migraciones configuradas  
+   Inserta los datos iniciales (Seed)
 
 
+Acceso público
 
+1. Las encuestas se pueden responder mediante:
+   /EncuestaPublica/Responder/{token}
