@@ -198,6 +198,11 @@
     <Compile Include="Interfaces\IRolRepository.cs" />
     <Compile Include="Interfaces\ITipoCampoRepository.cs" />
     <Compile Include="Interfaces\IUsuarioRepository.cs" />
+    <Compile Include="Migrations\202604232356129_InitialCreate.cs" />
+    <Compile Include="Migrations\202604232356129_InitialCreate.Designer.cs">
+      <DependentUpon>202604232356129_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ACE_CAMPO_ENCUESTA.cs" />
     <Compile Include="Models\ACE_ENCUESTA.cs" />
     <Compile Include="Models\ACE_OPCION_CAMPO.cs" />
@@ -345,6 +350,11 @@
     <Content Include="Scripts\bootstrap.bundle.js.map" />
     <Content Include="Scripts\jquery-3.7.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.7.0.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202604232356129_InitialCreate.resx">
+      <DependentUpon>202604232356129_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -35,6 +35,17 @@ namespace EncuestasAcme.Data
             modelBuilder.Entity<ACE_RESPUESTA>().ToTable("ACE_RESPUESTA").HasKey(x => x.RES_Respuesta);
             modelBuilder.Entity<ACE_RESPUESTA_DETALLE>().ToTable("ACE_RESPUESTA_DETALLE").HasKey(x => x.RED_Detalle);
             modelBuilder.Entity<ACE_RESPUESTA_OPCION>().ToTable("ACE_RESPUESTA_OPCION").HasKey(x => x.ROP_Respuesta_Opcion);
+
+
+            modelBuilder.Entity<ACE_USUARIO>().HasRequired(x => x.Rol).WithMany().HasForeignKey(x => x.ROL_Rol).WillCascadeOnDelete(false);
+            modelBuilder.Entity<ACE_CAMPO_ENCUESTA>().HasRequired(x => x.Encuesta).WithMany().HasForeignKey(x => x.ENC_Encuesta).WillCascadeOnDelete(false);
+            modelBuilder.Entity<ACE_CAMPO_ENCUESTA>().HasRequired(x => x.TipoCampo).WithMany().HasForeignKey(x => x.TCA_Tipo_Campo).WillCascadeOnDelete(false);
+            modelBuilder.Entity<ACE_OPCION_CAMPO>().HasRequired(x => x.CampoEncuesta).WithMany().HasForeignKey(x => x.CAM_Campo).WillCascadeOnDelete(false);
+            modelBuilder.Entity<ACE_RESPUESTA>().HasRequired(x => x.Encuesta).WithMany().HasForeignKey(x => x.ENC_Encuesta).WillCascadeOnDelete(false);
+            modelBuilder.Entity<ACE_RESPUESTA_DETALLE>().HasRequired(x => x.Respuesta).WithMany().HasForeignKey(x => x.RES_Respuesta).WillCascadeOnDelete(false);
+            modelBuilder.Entity<ACE_RESPUESTA_DETALLE>().HasRequired(x => x.CampoEncuesta).WithMany().HasForeignKey(x => x.CAM_Campo).WillCascadeOnDelete(false);
+            modelBuilder.Entity<ACE_RESPUESTA_OPCION>().HasRequired(x => x.RespuestaDetalle).WithMany().HasForeignKey(x => x.RED_Detalle).WillCascadeOnDelete(false);
+            modelBuilder.Entity<ACE_RESPUESTA_OPCION>().HasRequired(x => x.OpcionCampo).WithMany().HasForeignKey(x => x.OPC_Opcion).WillCascadeOnDelete(false);
         }
     }
 }
