@@ -55,7 +55,15 @@ namespace EncuestasAcme.Controllers
                     return View(dto);
                 }
 
-                service.Crear(dto);
+                if (Session["USU_Usuario"] == null)
+                {
+                    return RedirectToAction("Login", "Auth");
+                }
+
+                int usuarioId = Convert.ToInt32(Session["USU_Usuario"]);
+
+                service.Crear(dto, usuarioId);
+
                 TempData["Success"] = "Encuesta creada correctamente.";
                 return RedirectToAction("Index");
             }

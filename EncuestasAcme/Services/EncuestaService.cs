@@ -64,7 +64,7 @@ namespace EncuestasAcme.Services
                 Campos = campos
             };
         }
-        public void Crear(CreateEncuestaDTO dto)
+        public void Crear(CreateEncuestaDTO dto, int usuarioId)
         {
             if (repository.ExisteNombre(dto.ENC_Nombre))
             {
@@ -73,7 +73,7 @@ namespace EncuestasAcme.Services
 
             var encuesta = new ACE_ENCUESTA
             {
-                USU_Usuario = 1,
+                USU_Usuario = usuarioId,
                 ENC_Nombre = dto.ENC_Nombre,
                 ENC_Descripcion = dto.ENC_Descripcion,
                 ENC_Token_Publico = Guid.NewGuid(),
